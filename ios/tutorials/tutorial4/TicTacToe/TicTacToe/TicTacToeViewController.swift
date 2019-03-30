@@ -48,11 +48,13 @@ final class TicTacToeViewController: UIViewController, TicTacToePresentable, Tic
 
     func setCell(atRow row: Int, col: Int, withPlayerType playerType: PlayerType) {
         let indexPathRow = row * GameConstants.colCount + col
-        let cell = collectionView.cellForItem(at: IndexPath(row: indexPathRow, section: Constants.sectionCount - 1))
+        let indexPath = IndexPath(row: indexPathRow,
+                                  section: Constants.sectionCount - 1)
+        let cell = collectionView.cellForItem(at: indexPath)
         cell?.backgroundColor = playerType.color
     }
 
-    func announce(winner: PlayerType?, withCompletionHandler handler: @escaping () -> ()) {
+    func announce(winner: PlayerType?, withCompletionHandler handler: @escaping () -> Void) {
         let winnerString: String = {
             if let winner = winner {
                 switch winner {
@@ -93,12 +95,13 @@ final class TicTacToeViewController: UIViewController, TicTacToePresentable, Tic
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (maker: ConstraintMaker) in
             maker.center.equalTo(self.view.snp.center)
-            maker.size.equalTo(CGSize(width: CGFloat(GameConstants.colCount) * Constants.cellSize, height: CGFloat(GameConstants.rowCount) * Constants.cellSize))
+            maker.size.equalTo(CGSize(width: CGFloat(GameConstants.colCount) * Constants.cellSize,
+                                      height: CGFloat(GameConstants.rowCount) * Constants.cellSize))
         }
     }
 }
 
-fileprivate struct Constants {
+private struct Constants {
     static let sectionCount = 1
     static let cellSize: CGFloat = UIScreen.main.bounds.width / CGFloat(GameConstants.colCount)
     static let cellIdentifier = "TicTacToeCell"

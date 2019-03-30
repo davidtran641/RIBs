@@ -30,7 +30,8 @@ protocol OffGameListener: class {
     func startGame(with gameBuilder: GameBuildable)
 }
 
-final class OffGameInteractor: PresentableInteractor<OffGamePresentable>, OffGameInteractable, OffGamePresentableListener {
+final class OffGameInteractor: PresentableInteractor<OffGamePresentable>,
+    OffGameInteractable, OffGamePresentableListener {
 
     weak var router: OffGameRouting?
 

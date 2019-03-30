@@ -48,7 +48,7 @@ final class RandomWinViewController: UIViewController, RandomWinPresentable, Ran
 
     // MARK: - RandomWinPresentable
 
-    func announce(winner: PlayerType, withCompletionHandler handler: @escaping () -> ()) {
+    func announce(winner: PlayerType, withCompletionHandler handler: @escaping () -> Void) {
         let winnerString: String = {
             switch winner {
             case .player1:
@@ -58,7 +58,8 @@ final class RandomWinViewController: UIViewController, RandomWinPresentable, Ran
             }
         }()
         let alert = UIAlertController(title: winnerString, message: nil, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "That was random...", style: UIAlertAction.Style.default) { _ in
+        let title = "That was random..."
+        let closeAction = UIAlertAction(title: title, style: UIAlertAction.Style.default) { _ in
             handler()
         }
         alert.addAction(closeAction)

@@ -307,6 +307,7 @@
 				E9894B471F972CC500688FCB /* Frameworks */,
 				E9894B481F972CC500688FCB /* Resources */,
 				01C0219C62DB08840E36B78D /* [CP] Embed Pods Frameworks */,
+				2F0434F8224F13A000D7D925 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -389,6 +390,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TicTacToe/Pods-TicTacToe-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		2F0434F8224F13A000D7D925 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		64CF0EF6C16C782FD4AF3F3C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

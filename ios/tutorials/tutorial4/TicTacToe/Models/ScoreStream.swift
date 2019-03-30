@@ -50,9 +50,11 @@ public class ScoreStreamImpl: MutableScoreStream {
             let currentScore = variable.value
             switch winner {
             case .player1:
-                return Score(player1Score: currentScore.player1Score + 1, player2Score: currentScore.player2Score)
+                return Score(player1Score: currentScore.player1Score + 1,
+                             player2Score: currentScore.player2Score)
             case .player2:
-                return Score(player1Score: currentScore.player1Score, player2Score: currentScore.player2Score + 1)
+                return Score(player1Score: currentScore.player1Score,
+                             player2Score: currentScore.player2Score + 1)
             }
         }()
         variable.value = newScore

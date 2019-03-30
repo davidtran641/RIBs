@@ -18,20 +18,19 @@ public class LaunchGameWorkflow: Workflow<RootActionableItem> {
             .onStep { (rootItem: RootActionableItem) -> Observable<(LoggedInActionableItem, ())> in
                 rootItem.waitForLogin()
             }
-            .onStep { (loggedInActionableItem: LoggedInActionableItem, _) -> Observable<(LoggedInActionableItem, ())> in
+            .onStep { (loggedInActionableItem: LoggedInActionableItem, _)
+                -> Observable<(LoggedInActionableItem, ())> in
                 loggedInActionableItem.launchGame(with: gameId)
             }
             .commit()
-        
+
     }
-    
+
     private func parseGameId(from url: URL) -> String? {
         let components = URLComponents(string: url.absoluteString)
         let items = components?.queryItems ?? []
-        for item in items {
-            if item.name == "gameId" {
-                return item.value
-            }
+        for item in items where item.name == "gameId" {
+            return item.value
         }
         return nil
     }

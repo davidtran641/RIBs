@@ -24,7 +24,7 @@ public protocol TicTacToeRouting: ViewableRouting {
 protocol TicTacToePresentable: Presentable {
     var listener: TicTacToePresentableListener? { get set }
     func setCell(atRow row: Int, col: Int, withPlayerType playerType: PlayerType)
-    func announce(winner: PlayerType?, withCompletionHandler handler: @escaping () -> ())
+    func announce(winner: PlayerType?, withCompletionHandler handler: @escaping () -> Void)
 }
 
 public protocol TicTacToeListener: class {
@@ -110,6 +110,7 @@ final class TicTacToeInteractor: PresentableInteractor<TicTacToePresentable>, Ti
         return (nil, false)
     }
 
+    // swiftlint:disable cyclomatic_complexity
     private func checkWinner() -> PlayerType? {
         // Rows.
         for row in 0..<GameConstants.rowCount {
@@ -117,11 +118,10 @@ final class TicTacToeInteractor: PresentableInteractor<TicTacToePresentable>, Ti
                 continue
             }
             var winner: PlayerType? = assumedWinner
-            for col in 1..<GameConstants.colCount {
-                if assumedWinner.rawValue != board[row][col]?.rawValue {
-                    winner = nil
-                    break
-                }
+            for col in 1..<GameConstants.colCount where assumedWinner.rawValue != board[row][col]?.rawValue {
+                winner = nil
+                break
+
             }
             if let winner = winner {
                 return winner
@@ -134,11 +134,9 @@ final class TicTacToeInteractor: PresentableInteractor<TicTacToePresentable>, Ti
                 continue
             }
             var winner: PlayerType? = assumedWinner
-            for row in 1..<GameConstants.rowCount {
-                if assumedWinner.rawValue != board[row][col]?.rawValue {
-                    winner = nil
-                    break
-                }
+            for row in 1..<GameConstants.rowCount where assumedWinner.rawValue != board[row][col]?.rawValue {
+                winner = nil
+                break
             }
             if let winner = winner {
                 return winner
@@ -166,10 +164,8 @@ final class TicTacToeInteractor: PresentableInteractor<TicTacToePresentable>, Ti
 
     private func checkDraw() -> Bool {
         for row in 0..<GameConstants.rowCount {
-            for col in 0..<GameConstants.colCount {
-                if board[row][col] == nil {
-                    return false
-                }
+            for col in 0..<GameConstants.colCount where board[row][col] == nil {
+                return false
             }
         }
         return true

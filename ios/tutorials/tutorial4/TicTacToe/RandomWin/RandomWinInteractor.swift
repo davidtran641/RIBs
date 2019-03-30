@@ -23,14 +23,15 @@ public protocol RandomWinRouting: ViewableRouting {
 
 protocol RandomWinPresentable: Presentable {
     var listener: RandomWinPresentableListener? { get set }
-    func announce(winner: PlayerType, withCompletionHandler handler: @escaping () -> ())
+    func announce(winner: PlayerType, withCompletionHandler handler: @escaping () -> Void)
 }
 
 public protocol RandomWinListener: class {
     func didRandomlyWin(with player: PlayerType)
 }
 
-final class RandomWinInteractor: PresentableInteractor<RandomWinPresentable>, RandomWinInteractable, RandomWinPresentableListener {
+final class RandomWinInteractor: PresentableInteractor<RandomWinPresentable>,
+    RandomWinInteractable, RandomWinPresentableListener {
 
     weak var router: RandomWinRouting?
 
